@@ -1,0 +1,1 @@
+k apply -f 04-registry.yaml

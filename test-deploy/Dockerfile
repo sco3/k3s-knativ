@@ -12,10 +12,7 @@ RUN bun install --frozen-lockfile
 COPY . .
 
 # Compile TypeScript to JavaScript
-RUN pwd 
-RUN ls -la 
 RUN bun build /app/server.ts --compile
-RUN ls -la /app
 
 # Stage 2: Create the final, lightweight image
 # Use a minimal bun image for the final container
