@@ -1,5 +1,5 @@
 # Stage 1: Build the application
-FROM oven/bun:1.1.18 as builder
+FROM oven/bun:1.2.20-alpine as builder
 
 # Set the working directory
 WORKDIR /app
@@ -12,18 +12,22 @@ RUN bun install --frozen-lockfile
 COPY . .
 
 # Compile TypeScript to JavaScript
-RUN build 
+RUN pwd 
+RUN ls -la 
+RUN bun build /app/server.ts --compile
+RUN ls -la /app
 
 # Stage 2: Create the final, lightweight image
 # Use a minimal bun image for the final container
-FROM oven/bun:1.1.18
+FROM alpine:3.20
+
+RUN apk add libstdc++
 
 # Set the working directory
 WORKDIR /app
 
 # Copy the compiled files and package.json from the builder stage
-COPY --from=builder /app/dist ./dist
-COPY package.json .
+COPY --from=builder /app/server /app/server
 
 # Command to run the compiled application
-CMD ["bun", "build", "server.ts"]
+CMD ["/app/server"]
