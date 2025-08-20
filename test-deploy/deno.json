@@ -1,0 +1,7 @@
+{
+  "imports": {
+    "@types/node": "npm:@types/node@^24.3.0",
+    "express": "npm:express@^5.1.0",
+    "types": "npm:types@^0.1.1"
+  }
+}
